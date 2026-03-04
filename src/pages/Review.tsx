@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
 import { FillBlanks } from '@/components/FillBlanks';
+import { getOrCreateDeviceId, updateDeviceStats } from '@/utils/deviceStats';
 import type { Word } from '@/types';
 import type { DifficultyLevel } from '@/utils/fillBlanks';
 
@@ -17,8 +18,13 @@ export function Review() {
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [difficulty] = useState<DifficultyLevel>('medium');
+  const [deviceId, setDeviceId] = useState<string | null>(null);
 
   useEffect(() => {
+    // 初始化设备ID
+    const id = getOrCreateDeviceId();
+    setDeviceId(id);
+
     fetchReviewWords();
   }, []);
 
@@ -73,12 +79,22 @@ export function Review() {
     setShowResult(true);
 
     if (reviewWords[currentIndex]) {
+      // 保存到 practice_records 表
       await supabase.from('practice_records').insert([
         {
           word_id: reviewWords[currentIndex].id,
           is_correct: correct,
         },
       ]);
+
+      // 同步更新设备统计数据库
+      if (deviceId) {
+        try {
+          await updateDeviceStats(deviceId, correct);
+        } catch (err) {
+          console.error('Failed to update device stats in review mode:', err);
+        }
+      }
     }
   }
 

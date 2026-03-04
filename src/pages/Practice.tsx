@@ -3,6 +3,7 @@ import { usePractice } from '@/hooks/usePractice';
 import { FillBlanks } from '@/components/FillBlanks';
 import { DifficultySelector } from '@/components/DifficultySelector';
 import { BadgeDisplay } from '@/components/BadgeDisplay';
+import { getOrCreateDeviceId, getDeviceStats, createDeviceStats, updateDeviceStats } from '@/utils/deviceStats';
 import type { DifficultyLevel } from '@/utils/fillBlanks';
 
 export function Practice() {
@@ -11,6 +12,38 @@ export function Practice() {
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [stats, setStats] = useState({ correct: 0, total: 0 });
+  const [deviceId, setDeviceId] = useState<string | null>(null);
+  const [loadingStats, setLoadingStats] = useState(true);
+
+  // 加载设备统计数据
+  useEffect(() => {
+    async function loadDeviceStats() {
+      try {
+        const id = getOrCreateDeviceId();
+        setDeviceId(id);
+
+        let deviceStats = await getDeviceStats(id);
+
+        // 如果记录不存在，创建新记录
+        if (!deviceStats) {
+          deviceStats = await createDeviceStats(id);
+        }
+
+        if (deviceStats) {
+          setStats({
+            correct: deviceStats.total_correct_count,
+            total: deviceStats.total_practice_count,
+          });
+        }
+      } catch (err) {
+        console.error('Failed to load device stats:', err);
+      } finally {
+        setLoadingStats(false);
+      }
+    }
+
+    loadDeviceStats();
+  }, []);
 
   useEffect(() => {
     getRandomWord();
@@ -19,13 +52,28 @@ export function Practice() {
   async function handleSubmit(correct: boolean) {
     setIsCorrect(correct);
     setShowResult(true);
+
+    // 乐观更新：立即更新UI
+    const previousStats = { ...stats };
     setStats((prev) => ({
       correct: prev.correct + (correct ? 1 : 0),
       total: prev.total + 1,
     }));
 
+    // 保存到 practice_records 表
     if (currentWord) {
       await recordPractice(currentWord.id, correct);
+    }
+
+    // 更新设备统计数据库
+    if (deviceId) {
+      try {
+        await updateDeviceStats(deviceId, correct);
+      } catch (err) {
+        console.error('Failed to update device stats, rolling back:', err);
+        // 回滚乐观更新
+        setStats(previousStats);
+      }
     }
   }
 
@@ -42,7 +90,7 @@ export function Practice() {
     setIsCorrect(null);
   }
 
-  if (loading) {
+  if (loading || loadingStats) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
