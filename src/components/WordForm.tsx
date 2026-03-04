@@ -49,13 +49,13 @@ export function WordForm({ wordToEdit, onSubmit, onCancel }: WordFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-xl p-8 mb-8 border-4 border-purple-200">
-      <h2 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-        {wordToEdit ? '✏️ 编辑单词' : '✨ 添加新单词'}
+    <form onSubmit={handleSubmit} className="adventure-card mb-8">
+      <h2 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-adventure-blue-600 to-adventure-gold-500 bg-clip-text text-transparent">
+        {wordToEdit ? '✏️ 锻造单词' : '✨ 发现新单词'}
       </h2>
 
       {error && (
-        <div className="mb-6 p-4 bg-red-50 border-2 border-red-300 text-red-700 rounded-2xl text-center font-medium animate-bounce">
+        <div className="mb-6 p-4 bg-adventure-orange-50 border-2 border-adventure-orange-400 text-adventure-orange-700 rounded-2xl text-center font-medium animate-shake">
           {error}
         </div>
       )}
@@ -63,7 +63,7 @@ export function WordForm({ wordToEdit, onSubmit, onCancel }: WordFormProps) {
       <div className="space-y-6">
         <div>
           <label htmlFor="english" className="block text-lg font-bold text-gray-700 mb-2 flex items-center gap-2">
-            <span className="text-2xl">🔤</span>
+            <span className="text-2xl">🗡️</span>
             <span>English 英文</span>
           </label>
           <input
@@ -71,7 +71,7 @@ export function WordForm({ wordToEdit, onSubmit, onCancel }: WordFormProps) {
             id="english"
             value={english}
             onChange={(e) => setEnglish(e.target.value)}
-            className="w-full px-6 py-4 text-xl border-3 border-gray-300 rounded-2xl focus:ring-4 focus:ring-purple-400 focus:border-purple-500 transition-all"
+            className="game-input"
             placeholder="例如：apple"
             disabled={submitting}
           />
@@ -79,7 +79,7 @@ export function WordForm({ wordToEdit, onSubmit, onCancel }: WordFormProps) {
 
         <div>
           <label htmlFor="chinese" className="block text-lg font-bold text-gray-700 mb-2 flex items-center gap-2">
-            <span className="text-2xl">📖</span>
+            <span className="text-2xl">📜</span>
             <span>Chinese 中文</span>
           </label>
           <input
@@ -87,7 +87,7 @@ export function WordForm({ wordToEdit, onSubmit, onCancel }: WordFormProps) {
             id="chinese"
             value={chinese}
             onChange={(e) => setChinese(e.target.value)}
-            className="w-full px-6 py-4 text-xl border-3 border-gray-300 rounded-2xl focus:ring-4 focus:ring-pink-400 focus:border-pink-500 transition-all"
+            className="game-input"
             placeholder="例如：苹果"
             disabled={submitting}
           />
@@ -97,9 +97,9 @@ export function WordForm({ wordToEdit, onSubmit, onCancel }: WordFormProps) {
           <button
             type="submit"
             disabled={submitting}
-            className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-8 rounded-2xl hover:from-purple-600 hover:to-pink-600 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-xl font-bold shadow-lg hover:shadow-xl transition-all hover:scale-105"
+            className="quest-btn flex-1"
           >
-            {submitting ? '⏳ 保存中...' : wordToEdit ? '💾 更新' : '🚀 添加'}
+            {submitting ? '⏳ 锻造中...' : wordToEdit ? '🔨 重铸' : '⚔️ 铸造'}
           </button>
 
           {onCancel && (
@@ -107,9 +107,9 @@ export function WordForm({ wordToEdit, onSubmit, onCancel }: WordFormProps) {
               type="button"
               onClick={onCancel}
               disabled={submitting}
-              className="px-8 py-4 border-3 border-gray-300 rounded-2xl hover:bg-gray-100 disabled:cursor-not-allowed text-lg font-bold transition-all hover:scale-105"
+              className="px-8 py-4 border-4 border-gray-300 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed text-lg font-bold transition-all hover:scale-105 shadow-adventure-sm"
             >
-              ❌ 取消
+              ❌ 放弃
             </button>
           )}
         </div>

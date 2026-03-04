@@ -58,15 +58,15 @@ export function FillBlanks({ word, difficulty, onSubmit, onNext, showResult, isC
   }
 
   return (
-    <div className="bg-white rounded-3xl shadow-2xl p-10 max-w-3xl mx-auto border-4 border-purple-200">
-      <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-        ✏️ 填空挑战
+    <div className="adventure-card max-w-3xl mx-auto">
+      <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-adventure-orange-500 to-adventure-gold-500 bg-clip-text text-transparent">
+        ⚔️ 符文解密
       </h2>
 
-      <div className="mb-10 text-center p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl border-2 border-purple-200">
+      <div className="mb-10 text-center p-6 bg-gradient-to-r from-adventure-blue-50 to-adventure-gold-50 rounded-2xl border-4 border-adventure-blue-200">
         <p className="text-gray-600 text-xl mb-2 flex items-center justify-center gap-2">
-          <span className="text-2xl">📖</span>
-          <span>中文意思</span>
+          <span className="text-2xl">📜</span>
+          <span>秘密卷轴</span>
         </p>
         <p className="text-4xl font-bold text-gray-900">{word.chinese}</p>
       </div>
@@ -87,12 +87,12 @@ export function FillBlanks({ word, difficulty, onSubmit, onNext, showResult, isC
                   onChange={(e) => handleInputChange(blankIndex, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(blankIndex, e)}
                   disabled={showResult}
-                  className={`w-16 h-20 text-center text-3xl font-bold border-4 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-400 transition-all ${
+                  className={`w-16 h-20 text-center text-3xl font-bold border-4 rounded-xl focus:outline-none transition-all ${
                     showResult
                       ? isCorrect
-                        ? 'bg-green-100 border-green-500 text-green-700'
-                        : 'bg-red-100 border-red-500 text-red-700'
-                      : 'bg-white border-purple-300 hover:border-purple-500 hover:scale-105'
+                        ? 'bg-adventure-green-100 border-adventure-green-500 text-adventure-green-700 shadow-glow-green'
+                        : 'bg-adventure-orange-100 border-adventure-orange-500 text-adventure-orange-700'
+                      : 'bg-white border-adventure-blue-300 hover:border-adventure-blue-500 hover:scale-105 focus:border-adventure-blue-500 focus:shadow-glow-blue'
                   }`}
                   autoFocus={blankIndex === 0}
                 />
@@ -108,17 +108,17 @@ export function FillBlanks({ word, difficulty, onSubmit, onNext, showResult, isC
         </div>
 
         {showResult && !isCorrect && (
-          <div className="mt-6 text-center animate-bounce">
-            <p className="text-red-600 text-xl font-bold mb-2">❌ 答案不对哦</p>
-            <p className="text-gray-600 text-lg">正确答案是：</p>
+          <div className="mt-6 text-center animate-shake">
+            <p className="text-adventure-orange-600 text-xl font-bold mb-2">💔 挑战失败</p>
+            <p className="text-gray-600 text-lg">正确符文是：</p>
             <p className="text-3xl font-bold text-gray-900 mt-2">{word.english}</p>
           </div>
         )}
 
         {showResult && isCorrect && (
-          <div className="mt-6 text-center animate-bounce">
-            <p className="text-green-600 text-3xl font-bold mb-2">🎉 太棒了！</p>
-            <p className="text-gray-600 text-lg">你答对了！</p>
+          <div className="mt-6 text-center animate-pop-in">
+            <p className="text-adventure-green-600 text-3xl font-bold mb-2">🏆 胜利！</p>
+            <p className="text-gray-600 text-lg">你成功解开了符文！</p>
           </div>
         )}
       </div>
@@ -128,16 +128,16 @@ export function FillBlanks({ word, difficulty, onSubmit, onNext, showResult, isC
           <button
             onClick={handleSubmit}
             disabled={userAnswers.some((answer) => !answer)}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-12 rounded-2xl hover:from-purple-600 hover:to-pink-600 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-2xl font-bold shadow-lg hover:shadow-xl transition-all hover:scale-105"
+            className="quest-btn"
           >
-            🚀 提交答案
+            🚀 发动攻击
           </button>
         ) : (
           <button
             onClick={onNext}
-            className="bg-gradient-to-r from-green-500 to-teal-500 text-white py-4 px-12 rounded-2xl hover:from-green-600 hover:to-teal-600 text-2xl font-bold shadow-lg hover:shadow-xl transition-all hover:scale-105"
+            className="bg-gradient-to-r from-adventure-green-500 to-teal-500 text-white py-4 px-12 rounded-xl hover:from-adventure-green-600 hover:to-teal-600 text-2xl font-bold shadow-adventure hover:shadow-adventure-lg transition-all hover:scale-105"
           >
-            ➡️ 下一个单词
+            ➡️ 下一关
           </button>
         )}
       </div>

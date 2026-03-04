@@ -7,18 +7,21 @@ function Navigation() {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: '📚 单词本', emoji: '📚' },
-    { path: '/practice', label: '🎮 闯关练习', emoji: '🎮' },
-    { path: '/review', label: '📖 智能复习', emoji: '📖' },
+    { path: '/', label: '单词本', emoji: '📜' },
+    { path: '/practice', label: '闯关竞技场', emoji: '⚔️' },
+    { path: '/review', label: '训练营地', emoji: '🏕️' },
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 shadow-lg">
+    <nav className="bg-gradient-to-r from-adventure-blue-600 via-adventure-blue-500 to-adventure-gold-500 shadow-adventure-lg border-b-4 border-adventure-gold-400">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <Link to="/" className="text-3xl font-bold text-white hover:scale-105 transition-transform">
-              🦸 WordHero
+            <Link to="/" className="text-3xl font-bold text-white hover:scale-105 transition-transform flex items-center gap-2">
+              <span className="text-4xl">⚔️</span>
+              <span className="bg-gradient-to-r from-adventure-gold-300 to-yellow-200 bg-clip-text text-transparent">
+                WordHero
+              </span>
             </Link>
           </div>
           <div className="flex space-x-3">
@@ -26,13 +29,16 @@ function Navigation() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-6 py-3 rounded-xl font-bold text-lg transition-all ${
+                className={`nav-tab ${
                   location.pathname === item.path
-                    ? 'bg-white text-purple-600 shadow-lg scale-105'
-                    : 'text-white hover:bg-white/20 hover:scale-105'
+                    ? 'bg-white text-adventure-blue-600 shadow-adventure-sm active'
+                    : 'text-white/90 hover:bg-white/15 hover:text-white'
                 }`}
               >
-                {item.label}
+                <span className="flex items-center gap-2">
+                  <span className="text-2xl">{item.emoji}</span>
+                  <span>{item.label}</span>
+                </span>
               </Link>
             ))}
           </div>
@@ -45,7 +51,7 @@ function Navigation() {
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <div className="min-h-screen bg-gradient-to-br from-adventure-blue-50 via-white to-adventure-gold-50">
         <Navigation />
         <Routes>
           <Route path="/" element={<Words />} />

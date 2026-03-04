@@ -92,8 +92,8 @@ export function Review() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-24 w-24 border-8 border-purple-200 border-t-purple-600"></div>
-          <p className="mt-6 text-2xl text-gray-600 font-bold">加载复习单词...</p>
+          <div className="inline-block animate-spin rounded-full h-24 w-24 border-8 border-adventure-green-200 border-t-adventure-green-600"></div>
+          <p className="mt-6 text-2xl text-gray-600 font-bold">加载训练数据...</p>
         </div>
       </div>
     );
@@ -102,11 +102,11 @@ export function Review() {
   if (reviewWords.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center py-12">
-        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-md text-center border-4 border-purple-200">
-          <div className="text-8xl mb-4">🎉</div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-3">太棒了！</h2>
+        <div className="bg-white rounded-3xl shadow-adventure-lg p-12 max-w-md text-center border-4 border-adventure-gold-300">
+          <div className="text-8xl mb-4">🎊</div>
+          <h2 className="text-3xl font-bold text-gray-800 mb-3">所有训练完成！</h2>
           <p className="text-gray-600 text-lg">暂时没有需要复习的单词</p>
-          <p className="text-gray-500 mt-4">继续练习新单词吧！</p>
+          <p className="text-gray-500 mt-4">去接受新的挑战吧！</p>
         </div>
       </div>
     );
@@ -119,46 +119,47 @@ export function Review() {
     <div className="min-h-screen py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
-            📖 艾宾浩斯复习
+          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-adventure-green-500 via-adventure-blue-500 to-adventure-purple-500 bg-clip-text text-transparent text-shadow-adventure">
+            📜 训练营地
           </h1>
-          <p className="text-gray-600 text-xl">科学复习，轻松记住单词！</p>
+          <p className="text-gray-600 text-xl">复习你的词汇技能！</p>
         </div>
 
         {/* 进度条 */}
-        <div className="bg-white rounded-3xl shadow-xl p-6 mb-6 border-4 border-purple-200">
+        <div className="adventure-card mb-6">
           <div className="flex justify-between items-center mb-3">
-            <span className="font-bold text-gray-700">
-              进度：{currentIndex + 1} / {reviewWords.length}
+            <span className="font-bold text-gray-700 flex items-center gap-2">
+              <span>📍</span>
+              <span>任务进度：{currentIndex + 1} / {reviewWords.length}</span>
             </span>
-            <span className="font-bold text-purple-600">{Math.round(progress)}%</span>
+            <span className="font-bold text-adventure-gold-600">{Math.round(progress)}%</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+          <div className="treasure-progress h-6">
             <div
-              className="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full transition-all duration-300"
+              className="treasure-progress-fill"
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
         {/* 单词统计 */}
-        <div className="bg-white rounded-3xl shadow-xl p-6 mb-6 border-4 border-purple-200">
+        <div className="adventure-card mb-6">
           <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
-              <div className="text-3xl font-bold text-green-600">{currentWord.correct_count}</div>
-              <div className="text-sm text-gray-600 font-bold">答对次数</div>
+            <div className="p-4 bg-gradient-to-br from-adventure-green-50 to-adventure-green-100 rounded-xl border-2 border-adventure-green-300">
+              <div className="text-3xl font-bold text-adventure-green-600">{currentWord.correct_count}</div>
+              <div className="text-sm text-gray-600 font-bold">命中次数</div>
             </div>
-            <div className="p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl">
-              <div className="text-3xl font-bold text-red-600">{currentWord.incorrect_count}</div>
-              <div className="text-sm text-gray-600 font-bold">答错次数</div>
+            <div className="p-4 bg-gradient-to-br from-adventure-orange-50 to-adventure-orange-100 rounded-xl border-2 border-adventure-orange-300">
+              <div className="text-3xl font-bold text-adventure-orange-600">{currentWord.incorrect_count}</div>
+              <div className="text-sm text-gray-600 font-bold">失误次数</div>
             </div>
-            <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
-              <div className="text-3xl font-bold text-blue-600">
+            <div className="p-4 bg-gradient-to-br from-adventure-blue-50 to-adventure-blue-100 rounded-xl border-2 border-adventure-blue-300">
+              <div className="text-3xl font-bold text-adventure-blue-600">
                 {currentWord.correct_count > 0
                   ? Math.round((currentWord.correct_count / (currentWord.correct_count + currentWord.incorrect_count)) * 100)
                   : 0}%
               </div>
-              <div className="text-sm text-gray-600 font-bold">正确率</div>
+              <div className="text-sm text-gray-600 font-bold">命中率</div>
             </div>
           </div>
         </div>

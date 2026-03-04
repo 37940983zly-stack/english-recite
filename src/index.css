@@ -1,8 +1,101 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-body {
-  margin: 0;
-  min-height: 100vh;
+@layer base {
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  /* Adventure Card Base */
+  .adventure-card {
+    @reference bg-white rounded-2xl shadow-adventure border-4 border-adventure-gold-300 p-6;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .adventure-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+  }
+
+  /* Quest Button */
+  .quest-btn {
+    @reference font-bold text-white px-8 py-4 rounded-xl shadow-adventure;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quest-btn:hover {
+    @reference shadow-adventure-lg;
+    transform: translate(-2px, -2px);
+  }
+
+  .quest-btn:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Progress Bar - Treasure Map Style */
+  .treasure-progress {
+    @reference w-full bg-gray-200 rounded-full h-6 overflow-hidden border-4 border-adventure-gold-400;
+  }
+
+  .treasure-progress-fill {
+    @reference h-full rounded-full transition-all duration-500;
+    background: linear-gradient(90deg, #22c55e, #4ade80, #22c55e);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Game Input Box */
+  .game-input {
+    @reference w-full px-6 py-4 text-xl border-4 rounded-xl focus:outline-none transition-all;
+    border-color: #bfdbfe;
+    background: #eff6ff;
+  }
+
+  .game-input:focus {
+    @reference border-adventure-blue-500 shadow-glow-blue;
+    background: white;
+  }
+
+  /* Navigation Tab */
+  .nav-tab {
+    @reference px-6 py-3 rounded-xl font-bold text-lg transition-all;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 4px;
+    background: #fbbf24;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-tab:hover::after,
+  .nav-tab.active::after {
+    width: 60%;
+  }
+}
+
+@layer utilities {
+  .text-shadow-adventure {
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+  }
 }

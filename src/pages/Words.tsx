@@ -25,21 +25,22 @@ export function Words() {
     <div className="min-h-screen py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
-            📚 我的单词本
+          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-adventure-blue-600 via-adventure-gold-500 to-adventure-orange-500 bg-clip-text text-transparent text-shadow-adventure">
+            📜 单词宝库
           </h1>
-          <p className="text-gray-600 text-xl">添加、管理和学习你的单词</p>
+          <p className="text-gray-600 text-xl">收集和整理你的词汇宝藏！</p>
         </div>
 
         {error && (
-          <div className="mb-8 p-6 bg-red-50 border-4 border-red-300 text-red-700 rounded-3xl text-center font-bold text-lg">
-            ❌ {error}
+          <div className="mb-8 p-6 bg-adventure-orange-50 border-4 border-adventure-orange-400 text-adventure-orange-700 rounded-3xl text-center font-bold text-lg shadow-adventure">
+            <span className="text-2xl mr-2">⚠️</span>
+            {error}
           </div>
         )}
 
         {loading ? (
           <div className="text-center py-20">
-            <div className="inline-block animate-spin rounded-full h-20 w-20 border-8 border-purple-200 border-t-purple-600"></div>
+            <div className="inline-block animate-spin rounded-full h-20 w-20 border-8 border-adventure-blue-200 border-t-adventure-blue-600"></div>
             <p className="mt-6 text-xl text-gray-600 font-bold">加载中...</p>
           </div>
         ) : (
